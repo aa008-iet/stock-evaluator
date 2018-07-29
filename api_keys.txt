@@ -1,2 +1,3 @@
 alpha vantage: Q63YHW130JGQ7JPT
 usfundamentals: Bi9-qDvWCl7snyX9WzU7uQ
+quandl: xxRxymgUFyTHk1jw32Ls
