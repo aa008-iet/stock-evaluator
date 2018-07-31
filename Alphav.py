@@ -5,6 +5,7 @@ from alpha_vantage.techindicators import TechIndicators
 import time
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import matplotlib.pyplot as plt
 
 # used for printing out pandas dataframes
 from pprint import pprint
@@ -32,8 +33,7 @@ class Alphav(object):
     def bbands(self, ti):
         data, meta_data = ti.get_bbands(symbol = self.ticker)
         parse = getattr(self, "process", lambda: "An error occurred.")
-        target = parse(data)["Real Middle Band"]
-        return (target)
+        return parse(data)
 
     def ema(self, ti):
         data, meta_data = ti.get_ema(symbol=self.ticker)
@@ -42,10 +42,6 @@ class Alphav(object):
 
     def stoch(self, ti):
         data, meta_data = ti.get_stoch(symbol=self.ticker)
-        # start = (datetime.strptime(data.index.values[-1], "%Y-%m-%d") - relativedelta(years=self.years)).strftime("%Y-%m-%d")
-        # target = data.loc[start:data.index.values[-1], ["SlowK"]]
-        #
-        # return (target)
         parse = getattr(self, "process", lambda: "An error occurred.")
         return parse(data)
 
@@ -70,14 +66,25 @@ class Alphav(object):
         return parse(data)
 
     def process(self, data):
-        start = (datetime.strptime(data.index.values[-1], "%Y-%m-%d") - relativedelta(years=self.years)).strftime("%Y-%m-%d")
+        start = (datetime.strptime(data.index.values[-1], "%Y-%m-%d %H:%M:%S") - relativedelta(years=self.years)).strftime("%Y-%m-%d")
         target = data.loc[start:data.index.values[-1]]
         return(target)
 
     def assemble(self):
-        pd.merge(self.daily_data(), self.indics("bbands"), on = self.daily_data().index.values)
+        indics = ["bbands", "ema", "stoch", "rsi", "chaikin", "obv", "aroon"]
+        prices = self.daily_data()
+        master = prices.reset_index(drop = True)
+        print("Successfully parsed stock data.")
 
-ticker = input("Enter the ticker: ")
-comp = Alphav(ticker, 5)
-# pprint(apple.daily_data())
-pprint(comp.assemble())
+        for i in range(0,len(indics)):
+            if (i == 3):
+                print("Waiting for 60 seconds")
+                time.sleep(60)
+            master = pd.concat([master, self.indics(indics[i]).reset_index(drop = True)], axis = 1, sort = False)
+            print("Successfully parsed %s."%(indics[i]))
+
+        master.set_index(prices.index.values, inplace = True)
+        master.plot()
+        plt.title("Stock Prices and Indicators for %s"%(self.ticker))
+        plt.show()
+        return master
