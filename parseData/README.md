@@ -29,6 +29,7 @@ google.assemble()
 ```
 
 <h3>Citations</h3>
+
 >The [alpha_vantage library](https://github.com/RomelTorres/alpha_vantage) by RomelTorres
 
 >[Alpha Vantage API](https://alphavantage.co)
