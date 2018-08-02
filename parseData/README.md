@@ -17,13 +17,13 @@ Each class has a function that assembles different data per ticker.
 For example, the following code writes a csv file of adjusted close, highs, lows and volume of shares traded per business day, as well as relevant indicators such as the stochastic oscillator and the exponential moving average. 
 
 ```python
-import Alphav
+from .Alphav import Alphav
 apple = Alphav("AAPL", 5)
 apple.assemble()
 ```
 Below, calling data from Morningstar yields a csv file with 100 columns of data from GOOGL financial statements.
 ```python
-import Morningstar
+from .Morningstar import Morningstar
 google = Morningstar("GOOGL")
 google.assemble()
 ```
