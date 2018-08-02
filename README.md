@@ -1,4 +1,4 @@
-#Stock Evaluator
+# Stock Evaluator
 
 <h3>Purpose</h3>
 Identify strong and weak performers based on historical data. 
