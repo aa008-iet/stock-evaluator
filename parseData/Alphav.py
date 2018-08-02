@@ -76,12 +76,12 @@ class Alphav(object):
         master = prices.reset_index(drop=True)
         print("Successfully parsed stock data.")
 
-        for i in range(0, len(indics)):
-            if i == 3:
+        for i in indics:
+            if indics.index(i) == 3:
                 print("Waiting for 60 seconds")
                 time.sleep(60)
-            master = pd.concat([master, self.indics(indics[i]).reset_index(drop=True)], axis=1, sort=False)
-            print("Successfully parsed %s." % (indics[i]))
+            master = pd.concat([master, self.indics(i).reset_index(drop=True)], axis=1, sort=False)
+            print("Successfully parsed %s." % i)
 
         master.set_index(prices.index.values, inplace=True)
         master.plot()

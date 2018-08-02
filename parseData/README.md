@@ -32,7 +32,7 @@ google.assemble()
 
 >The [alpha_vantage library](https://github.com/RomelTorres/alpha_vantage) by RomelTorres
 
->[Alpha Vantage API](https://alphavantage.co)
+>[Alpha Vantage API](https://alphavantage.co) 
 
 >[Morningstar API](https://gist.github.com/hahnicity/45323026693cdde6a116)
 
