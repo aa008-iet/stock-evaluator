@@ -1,5 +1,5 @@
-from Alphav import Alphav
-from Morningstar import Morningstar
+from .Alphav import Alphav
+from .Morningstar import Morningstar
 import time
 
 ticker = input("Enter the ticker: ")
