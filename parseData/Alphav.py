@@ -8,9 +8,6 @@ from dateutil.relativedelta import relativedelta
 import matplotlib.pyplot as plt
 
 
-# used for printing out pandas data frames
-# from pprint import pprint
-
 class Alphav(object):
     def __init__(self, ticker, years):
         self.ticker = ticker
