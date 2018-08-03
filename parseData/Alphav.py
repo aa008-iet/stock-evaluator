@@ -2,8 +2,8 @@
 import pandas as pd
 from alpha_vantage.timeseries import TimeSeries
 from alpha_vantage.techindicators import TechIndicators
-import time
-from datetime import datetime
+import time as t
+from datetime import datetime, time
 from dateutil.relativedelta import relativedelta
 import matplotlib.pyplot as plt
 
@@ -13,6 +13,9 @@ class Alphav(object):
         self.ticker = ticker
         self.years = years
 
+    def is_business_day(self, date):
+        return bool(len(pd.bdate_range(date, date)))
+
     def daily_data(self):
         ts = TimeSeries(key="Q63YHW130JGQ7JPT", output_format="pandas", indexing_type="date")
         data, meta_data = ts.get_daily_adjusted(symbol=self.ticker, outputsize="full")
@@ -21,13 +24,13 @@ class Alphav(object):
 
         target = data.loc[start:data.index.values[-1], ["5. adjusted close", "2. high", "3. low", "6. volume"]]
         target.columns = ["adj_close", "high", "low", "volume"]
-        return (target)
+        return target
 
     def indics(self, output):
         ti = TechIndicators(key="Q63YHW130JGQ7JPT", output_format="pandas", indexing_type="date")
-        getindic = getattr(self, output, lambda: "Invalid indicator.")
+        get = getattr(self, output, lambda: "Invalid indicator.")
 
-        return getindic(ti)
+        return get(ti)
 
     def bbands(self, ti):
         data, meta_data = ti.get_bbands(symbol=self.ticker)
@@ -65,8 +68,12 @@ class Alphav(object):
         return parse(data)
 
     def process(self, data):
-        start = (datetime.strptime(data.index.values[-1], "%Y-%m-%d %H:%M:%S") - relativedelta(
-            years=self.years)).strftime("%Y-%m-%d")
+        if self.is_business_day(datetime.today()) and time(9, 30) < datetime.now().time() < time(16, 0):
+            start = (datetime.strptime(data.index.values[-1], "%Y-%m-%d %H:%M:%S") - relativedelta(
+                years=self.years)).strftime("%Y-%m-%d")
+        else:
+            start = (datetime.strptime(data.index.values[-1], "%Y-%m-%d") - relativedelta(
+                years=self.years)).strftime("%Y-%m-%d")
         target = data.loc[start:data.index.values[-1]]
         return target
 
@@ -79,7 +86,7 @@ class Alphav(object):
         for i in indics:
             if indics.index(i) == 3:
                 print("Waiting for 60 seconds")
-                time.sleep(60)
+                t.sleep(60)
             master = pd.concat([master, self.indics(i).reset_index(drop=True)], axis=1, sort=False)
             print("Successfully parsed %s." % i)
 
