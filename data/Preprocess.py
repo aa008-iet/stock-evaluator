@@ -1,5 +1,5 @@
-from parseData.Alphav import Alphav
-from parseData.Morningstar import Morningstar
+from data.Alphav import Alphav
+from data.Morningstar import Morningstar
 import pandas as pd
 import numpy as np
 
@@ -22,4 +22,14 @@ def preprocess(ticker):
                 alpha.iloc[row, alpha.columns.get_loc(ms.columns.values[col])] = ms.iloc[md_index.get_loc(ad_index[row]), col]
         print("At col %s." % col)
 
+    alpha["Score"] = np.nan
+    for row in range(1, len(alpha)):
+        if alpha.adj_close[row] > alpha.adj_close[row - 1]:
+            alpha.iloc[row, alpha.columns.get_loc("Score")] = "True"
+        else:
+            alpha.iloc[row, alpha.columns.get_loc("Score")] = "False"
+
     return alpha
+
+
+preprocess("AAPL").to_csv("test.csv", encoding="utf-8")
