@@ -23,13 +23,13 @@ def preprocess(ticker):
         print("At col %s." % col)
 
     alpha["Score"] = np.nan
-    for row in range(1, len(alpha)):
-        if alpha.adj_close[row] > alpha.adj_close[row - 1]:
-            alpha.iloc[row, alpha.columns.get_loc("Score")] = "True"
+    for row in range(0, len(alpha) - 1):
+        if alpha.adj_close[row] < alpha.adj_close[row + 1]:
+            alpha.iloc[row, alpha.columns.get_loc("Score")] = 1
         else:
-            alpha.iloc[row, alpha.columns.get_loc("Score")] = "False"
+            alpha.iloc[row, alpha.columns.get_loc("Score")] = 0
 
-    return alpha
+    return alpha[:-1]
 
 
-preprocess("AAPL").to_csv("test.csv", encoding="utf-8")
+preprocess("AAPL").to_csv("test.csv")
