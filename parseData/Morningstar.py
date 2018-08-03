@@ -10,5 +10,7 @@ class Morningstar(object):
         print("Now reading %s" % url)
         response = pd.read_csv(url, skiprows=2).transpose().dropna(axis=1)
         response.columns = response.iloc[0]
+        response = response.loc[:, response.iloc[-1].ne('TTM')]
+        response = response.loc[:, response.iloc[-1].ne('Latest Qtr')]
         return response[1:]
 
