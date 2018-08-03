@@ -11,6 +11,8 @@ matplotlib = "*"
 alpha-vantage = "*"
 keras = "*"
 tensorflow = "*"
+scikit-learn = "*"
+sklearn = "*"
 
 [dev-packages]
 
