@@ -13,6 +13,8 @@ keras = "*"
 tensorflow = "*"
 scikit-learn = "*"
 sklearn = "*"
+talos = "*"
+wrangle = "*"
 
 [dev-packages]
 
