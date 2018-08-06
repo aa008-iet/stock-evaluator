@@ -8,6 +8,6 @@ Data will be fed through a neural network using the Keras interface and Tensorfl
 The end goal is to be able to input a ticker and spit out a classification as a strong or weak performer.
 
 <h3>Data</h3>
-See /parseData/README.md to check data citations.
+See /data/README.md to check data citations.
     
 <h6>Contact me at xinglongjh@gmail.com.</h6>  
