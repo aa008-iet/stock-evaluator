@@ -5,11 +5,9 @@ import pandas as pd
 
 # keras and tensorflow and scikit-learn
 from keras.models import Sequential
-from keras.layers import Dropout, Dense, Activation
-from keras.wrappers.scikit_learn import KerasClassifier
+from keras.layers import Dropout, Dense
 from sklearn.model_selection import cross_val_score
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn import preprocessing
 from sklearn.model_selection import StratifiedKFold, train_test_split
 
 # tuning hyperparameters
@@ -41,42 +39,18 @@ def data():
 def tuned_model(x_t, y_t, x_v, y_v):
     model = Sequential()
     model.add(Dense(72, input_dim=72, kernel_initializer='normal', activation='relu'))
-    model.add(Dropout({{uniform(0, 1)}}))
-    model.add(Dense({{choice([18, 36, 54])}}, kernel_initializer='normal'))
-    model.add(Activation({{choice(['relu'])}}))
-    model.add(Dropout({{uniform(0, 1)}}))
-    model.add(Dense({{choice([18, 36, 54])}}, kernel_initializer='normal'))
-    model.add(Activation({{choice(['relu'])}}))
-    model.add(Dropout({{uniform(0, 1)}}))
-    model.add(Dense({{choice([18, 36, 54])}}, kernel_initializer='normal'))
-    model.add(Activation({{choice(['relu'])}}))
-    model.add(Dropout({{uniform(0, 1)}}))
-    model.add(Dense({{choice([18, 36, 54])}}, kernel_initializer='normal'))
-    model.add(Activation({{choice(['relu'])}}))
-    model.add(Dropout({{uniform(0, 1)}}))
-    model.add(Dense({{choice([18, 36, 54])}}, kernel_initializer='normal'))
-    model.add(Activation({{choice(['relu'])}}))
-    model.add(Dropout({{uniform(0, 1)}}))
-    model.add(Dense({{choice([18, 36, 54])}}, kernel_initializer='normal'))
-    model.add(Activation({{choice(['relu'])}}))
-    model.add(Dropout({{uniform(0, 1)}}))
-    model.add(Dense({{choice([18, 36, 54])}}, kernel_initializer='normal'))
-    model.add(Activation({{choice(['relu'])}}))
-    model.add(Dropout({{uniform(0, 1)}}))
-    model.add(Dense({{choice([18, 36, 54])}}, kernel_initializer='normal'))
-    model.add(Activation({{choice(['relu'])}}))
-    model.add(Dropout({{uniform(0, 1)}}))
-    # if {{choice(['three', 'four'])}} == 'four':
-    #     model.add(Dense(18))
-    #     model.add(Dropout(0.5))
-    #     model.add(Activation('relu'))
+    model.add(Dropout({{uniform(0.15, 0.3)}}))
 
-    model.add(Dense(1, activation='sigmoid'))
+    for i in range(1, {{choice([8, 10, 12])}}):
+        model.add(Dense({{choice([36, 72])}}, kernel_initializer='normal', activation='relu'))
+        model.add(Dropout({{uniform(0.15, 0.3)}}))
+
+    model.add(Dense(1, activation='relu'))
 
     model.compile(loss='binary_crossentropy', metrics=['accuracy'],
-                  optimizer={{choice(['nadam', 'adam'])}})
+                  optimizer='adam')
 
-    model.fit(x_t, y_t, batch_size={{choice([5, 10])}}, epochs=100, verbose=2)
+    model.fit(x_t, y_t, batch_size={{choice([8, 10, 15])}}, epochs=100, verbose=2)
     score, acc = model.evaluate(x_v, y_v, verbose=0)
     print("Test accuracy: ", acc)
     return {'loss': -acc, 'status': STATUS_OK, 'model': model}

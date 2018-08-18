@@ -2309,6 +2309,7 @@
       <w>create.post</w>
       <w>create_progress_bar</w>
       <w>crimtab</w>
+      <w>crossentropy</w>
       <w>crossprod</w>
       <w>cscale</w>
       <w>ctapply</w>
@@ -3466,6 +3467,7 @@
       <w>hue_pal</w>
       <w>hue_slice</w>
       <w>hvc2mnsl</w>
+      <w>hyperparameters</w>
       <w>iconv</w>
       <w>iconvlist</w>
       <w>icuGetCollate</w>
@@ -3827,6 +3829,7 @@
       <w>kappa.lm</w>
       <w>kappa.qr</w>
       <w>kde2d</w>
+      <w>keras</w>
       <w>kernapply</w>
       <w>kernel</w>
       <w>key</w>
@@ -4340,6 +4343,7 @@
       <w>na_dbl</w>
       <w>na_int</w>
       <w>na_lgl</w>
+      <w>nadam</w>
       <w>name_rows</w>
       <w>namedList</w>
       <w>names</w>
@@ -5157,6 +5161,7 @@
       <w>rel</w>
       <w>relevel</w>
       <w>relist</w>
+      <w>relu</w>
       <w>rematchDefinition</w>
       <w>remission</w>
       <w>remove</w>
@@ -5441,6 +5446,7 @@
       <w>schemaValidationErrorHandler</w>
       <w>scientific</w>
       <w>scientific_format</w>
+      <w>scikit</w>
       <w>scoped_bindings</w>
       <w>scoped_env</w>
       <w>scoped_envs</w>
@@ -6251,6 +6257,7 @@
       <w>tempfile</w>
       <w>tensor.prod.model.matrix</w>
       <w>tensor.prod.penalties</w>
+      <w>tensorflow</w>
       <w>term_cap_test</w>
       <w>termplot</w>
       <w>terms</w>
